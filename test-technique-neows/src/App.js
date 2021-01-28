@@ -21,7 +21,6 @@ export default class App extends Component {
       .then((result) => {
         var data = []
         var newData = this.state.dataNeo
-        console.log(result.near_earth_objects)
         for (let i = 0; i < result.near_earth_objects.length; i++) {
           data.push([result.near_earth_objects[i].name, result.near_earth_objects[i].estimated_diameter.kilometers.estimated_diameter_min, result.near_earth_objects[i].estimated_diameter.kilometers.estimated_diameter_max])
          }
@@ -31,8 +30,6 @@ export default class App extends Component {
           });
         
           newData.unshift(['name', 'Min estimated diameter (km)', 'Max estimated diameter'],)
-        console.log(newData)
-        console.log(data)
          this.setState({dataNeo: newData})
      }
         
