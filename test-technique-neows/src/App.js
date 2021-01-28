@@ -171,6 +171,24 @@ export default class App extends Component {
               </div>
             );
           }
+          else if (this.state.filter == 'venus') {
+            return (
+              <div style={{ display: 'flex', marginTop: '2rem' }}>
+                <Chart
+                  width={800}
+                  height={600}
+                  chartType="BarChart"
+                  loader={<div>Loading Chart</div>}
+                  data={this.state.dataNeoVenus}
+                  options={{
+                    title: 'NEO',
+                    chartArea: { width: '50%', height: '90%' },
+                  }}
+
+                />
+              </div>
+            );
+          }
         })()}
 
       </div>
