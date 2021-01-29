@@ -1,7 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import Chart from "react-google-charts";
+
 import React, { Component } from 'react'
+
+import ChartsBars from './component/chartsBar'
 
 export default class App extends Component {
 
@@ -17,7 +19,7 @@ export default class App extends Component {
   }
 
   fetchDataAll = () => {
-    fetch("https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY")
+    fetch("data.json")
       .then((response) => { return response.json(); })
       .then((result) => {
         var data = []
@@ -39,7 +41,7 @@ export default class App extends Component {
   }
 
   fetchDataJupitr = () => {
-    fetch("https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY")
+    fetch("data.json")
       .then((response) => { return response.json(); })
       .then((result) => {
         var dataJupitr = []
@@ -65,7 +67,7 @@ export default class App extends Component {
   }
 
   fetchDataVenus= () => {
-    fetch("https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY")
+    fetch("data.json")
       .then((response) => { return response.json(); })
       .then((result) => {
         var dataVenus = []
@@ -101,13 +103,13 @@ export default class App extends Component {
   }
 
   componentDidMount = () => {
-    console.log(this.state.filter)
     this.fetchDataVenus()
     this.fetchDataJupitr()
     this.fetchDataAll()
   }
 
   render() {
+    
     return (
       <div className="App">
         <header className="App-header">
@@ -138,58 +140,32 @@ export default class App extends Component {
         {(() => {
           if (this.state.filter == 'all') {
             return (
-              <div style={{ display: 'flex', marginTop: '2rem' }}>
-                <Chart
-                  width={800}
-                  height={700}
-                  chartType="BarChart"
-                  loader={<div>Loading Chart</div>}
-                  data={this.state.dataNeoAll}
-                  options={{
-                    title: 'NEO',
-                    chartArea: { width: '50%', height: '100%' },
-                  }}
-
-                />
-              </div>
+              <ChartsBars dataNeo={this.state.dataNeoAll}/>
             );
           } else if (this.state.filter == 'jupiter') {
             return (
-              <div style={{ display: 'flex', marginTop: '2rem' }}>
-                <Chart
-                  width={800}
-                  height={600}
-                  chartType="BarChart"
-                  loader={<div>Loading Chart</div>}
-                  data={this.state.dataNeoJupitr}
-                  options={{
-                    title: 'NEO',
-                    chartArea: { width: '50%', height: '90%' },
-                  }}
-
-                />
-              </div>
+              <ChartsBars dataNeo={this.state.dataNeoJupitr}/>
             );
           }
           else if (this.state.filter == 'venus') {
             return (
-              <div style={{ display: 'flex', marginTop: '2rem' }}>
-                <Chart
-                  width={800}
-                  height={600}
-                  chartType="BarChart"
-                  loader={<div>Loading Chart</div>}
-                  data={this.state.dataNeoVenus}
-                  options={{
-                    title: 'NEO',
-                    chartArea: { width: '50%', height: '90%' },
-                  }}
-
-                />
-              </div>
+              <ChartsBars dataNeo={this.state.dataNeoVenus}/>
             );
           }
         })()}
+
+    
+                 <table className='table' border='0' cellPadding='10' size='50%'> 
+                    <thead>
+                        <tr >
+                        <th></th>
+                            <th>nom NEO</th>
+                            <th>min diameter</th>
+                            <th>max diameter</th>
+                        </tr>
+                    </thead>
+                  
+                </table>
 
       </div>
     )
